@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NuevaCotizacion.aspx.cs" Inherits="SistemaCotizacion.Vistas.NuevaCotizacion" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="NuevaCotizacionForm.aspx.cs" Inherits="SistemaCotizacion.Vistas.NuevaCotizacion" %>
 
 <!DOCTYPE html>
 

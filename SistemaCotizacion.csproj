@@ -68,12 +68,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Vistas\AdministradorProductos.aspx" />
-    <Content Include="Vistas\Historial.aspx" />
-    <Content Include="Vistas\Login.aspx" />
-    <Content Include="Vistas\MenuPrincipal.aspx" />
-    <Content Include="Vistas\NuevaCotizacion.aspx" />
-    <Content Include="Vistas\ResultadoCotizacion.aspx" />
+    <Content Include="Vistas\AdministradorProductosForm.aspx" />
+    <Content Include="Vistas\HistorialForm.aspx" />
+    <Content Include="Vistas\LoginForm.aspx" />
+    <Content Include="Vistas\MenuPrincipalForm.aspx" />
+    <Content Include="Vistas\NuevaCotizacionForm.aspx" />
+    <Content Include="Vistas\ResultadoCotizacionForm.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -81,47 +81,47 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vistas\AdministradorProductos.aspx.cs">
-      <DependentUpon>AdministradorProductos.aspx</DependentUpon>
+    <Compile Include="Vistas\AdministradorProductosForm.aspx.cs">
+      <DependentUpon>AdministradorProductosForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vistas\AdministradorProductos.aspx.designer.cs">
-      <DependentUpon>AdministradorProductos.aspx</DependentUpon>
+    <Compile Include="Vistas\AdministradorProductosForm.aspx.designer.cs">
+      <DependentUpon>AdministradorProductosForm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\Historial.aspx.cs">
-      <DependentUpon>Historial.aspx</DependentUpon>
+    <Compile Include="Vistas\HistorialForm.aspx.cs">
+      <DependentUpon>HistorialForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vistas\Historial.aspx.designer.cs">
-      <DependentUpon>Historial.aspx</DependentUpon>
+    <Compile Include="Vistas\HistorialForm.aspx.designer.cs">
+      <DependentUpon>HistorialForm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\Login.aspx.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="Vistas\LoginForm.aspx.cs">
+      <DependentUpon>LoginForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vistas\Login.aspx.designer.cs">
-      <DependentUpon>Login.aspx</DependentUpon>
+    <Compile Include="Vistas\LoginForm.aspx.designer.cs">
+      <DependentUpon>LoginForm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\MenuPrincipal.aspx.cs">
-      <DependentUpon>MenuPrincipal.aspx</DependentUpon>
+    <Compile Include="Vistas\MenuPrincipalForm.aspx.cs">
+      <DependentUpon>MenuPrincipalForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vistas\MenuPrincipal.aspx.designer.cs">
-      <DependentUpon>MenuPrincipal.aspx</DependentUpon>
+    <Compile Include="Vistas\MenuPrincipalForm.aspx.designer.cs">
+      <DependentUpon>MenuPrincipalForm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\NuevaCotizacion.aspx.cs">
-      <DependentUpon>NuevaCotizacion.aspx</DependentUpon>
+    <Compile Include="Vistas\NuevaCotizacionForm.aspx.cs">
+      <DependentUpon>NuevaCotizacionForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vistas\NuevaCotizacion.aspx.designer.cs">
-      <DependentUpon>NuevaCotizacion.aspx</DependentUpon>
+    <Compile Include="Vistas\NuevaCotizacionForm.aspx.designer.cs">
+      <DependentUpon>NuevaCotizacionForm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\ResultadoCotizacion.aspx.cs">
-      <DependentUpon>ResultadoCotizacion.aspx</DependentUpon>
+    <Compile Include="Vistas\ResultadoCotizacionForm.aspx.cs">
+      <DependentUpon>ResultadoCotizacionForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vistas\ResultadoCotizacion.aspx.designer.cs">
-      <DependentUpon>ResultadoCotizacion.aspx</DependentUpon>
+    <Compile Include="Vistas\ResultadoCotizacionForm.aspx.designer.cs">
+      <DependentUpon>ResultadoCotizacionForm.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

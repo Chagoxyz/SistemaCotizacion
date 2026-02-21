@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ResultadoCotizacion.aspx.cs" Inherits="SistemaCotizacion.Vistas.ResultadoCotizacion" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="MenuPrincipalForm.aspx.cs" Inherits="SistemaCotizacion.Vistas.MenuPrincipal" %>
 
 <!DOCTYPE html>
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="SistemaCotizacion.Vistas.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdministradorProductosForm.aspx.cs" Inherits="SistemaCotizacion.Vistas.AdministradorProductos" %>
 
 <!DOCTYPE html>
 

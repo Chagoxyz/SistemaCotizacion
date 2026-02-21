@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Historial.aspx.cs" Inherits="SistemaCotizacion.Vistas.Historial" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="HistorialForm.aspx.cs" Inherits="SistemaCotizacion.Vistas.Historial" %>
 
 <!DOCTYPE html>
 
