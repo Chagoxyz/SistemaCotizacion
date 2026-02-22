@@ -1,0 +1,151 @@
+﻿body {
+    body {
+        margin: 0;
+        font-family: Segoe UI, Arial;
+        background: #D8D8C0;
+        color: #000000;
+    }
+    /* Barra */
+    .topbar {
+        background: #1693A5;
+        color: #FFFFFF;
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-weight: 700;
+    }
+
+    .volver {
+        color: #FFFFFF;
+        text-decoration: none;
+    }
+    /* Contenedor */
+    .contenedor {
+        display: flex;
+        justify-content: center;
+        padding: 40px;
+    }
+
+    .card {
+        background: #FFFFFF;
+        width: 950px;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+    /* Filtros */
+    .filtros {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 18px;
+        margin-top: 15px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    .input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #D8D8C0;
+    }
+
+        .input:focus {
+            outline: none;
+            border: 1px solid #1693A5;
+        }
+
+    .seccion {
+        margin-top: 30px;
+        color: #1693A5;
+    }
+    /* Botones */
+    .botones {
+        margin-top: 20px;
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn-primary {
+        background: #1693A5;
+        color: #FFFFFF;
+        border: none;
+        padding: 12px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background: #000000;
+        }
+
+    .btn-sec {
+        background: #D8D8C0;
+        color: #000000;
+        border: none;
+        padding: 12px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .btn-danger {
+        background: #000000;
+        color: #FFFFFF;
+        border: none;
+        padding: 12px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+        .btn-danger:hover {
+            background: #1693A5;
+        }
+    /* Tabla */
+    .tabla {
+        width: 100%;
+        margin-top: 10px;
+        border-collapse: collapse;
+    }
+
+        .tabla th {
+            background: #1693A5;
+            color: #FFFFFF;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .tabla td {
+            padding: 10px;
+            border-bottom: 1px solid #D8D8C0;
+        }
+
+    .btn-mini {
+        background: #1693A5;
+        color: #FFFFFF;
+        border: none;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+        .btn-mini:hover {
+            background: #000000;
+        }
+
+    .mensaje {
+        display: block;
+        margin-top: 15px;
+        text-align: center;
+        color: red;
+    }
+}
