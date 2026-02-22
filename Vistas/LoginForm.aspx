@@ -1,10 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="LoginForm.aspx.cs" Inherits="SistemaCotizacion.Vistas.Login" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Login - Sistema APF</title>
     <link href="../Estilos/LoginStyles.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -33,4 +32,5 @@
 
 </form>
 
-</body></html>
+</body>
+</html>
