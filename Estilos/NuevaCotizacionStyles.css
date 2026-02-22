@@ -1,0 +1,97 @@
+﻿body {
+    body {
+        margin: 0;
+        font-family: Segoe UI;
+        background: #D8D8C0;
+    }
+    /* barra */
+    .topbar {
+        background: #1693A5;
+        color: white;
+        padding: 15px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        font-weight: bold;
+    }
+
+    .volver {
+        color: white;
+        text-decoration: none;
+    }
+    /* contenedor */
+    .contenedor {
+        display: flex;
+        justify-content: center;
+        padding: 40px;
+    }
+
+    .card {
+        background: white;
+        padding: 30px;
+        width: 800px;
+        border-radius: 12px;
+        box-shadow: 0px 5px 20px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        margin-top: 0;
+        color: #000;
+    }
+
+    .seccion {
+        margin-top: 25px;
+        color: #1693A5;
+    }
+    /* grid */
+    .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    .input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #D8D8C0;
+    }
+
+        .input:focus {
+            border: 1px solid #1693A5;
+            outline: none;
+        }
+    /* botones */
+    .botones {
+        margin-top: 30px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-primary {
+        background: #1693A5;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+        .btn-primary:hover {
+            background: black;
+        }
+
+    .btn-sec {
+        background: #D8D8C0;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+    }
+}
