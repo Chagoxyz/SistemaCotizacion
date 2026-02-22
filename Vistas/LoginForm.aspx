@@ -8,29 +8,29 @@
 </head>
 <body>
 
-<form id="form1" runat="server">
+    <form id="form1" runat="server">
 
-    <div class="contenedor">
+        <div class="contenedor">
 
-        <div class="card-login">
+            <div class="card-login">
 
-            <h2 class="titulo">Sistema de Cotización APF</h2>
+                <h2 class="titulo">Sistema de Cotización APF</h2>
 
-            <label class="label">Usuario</label>
-            <asp:TextBox ID="txtUsuario" runat="server" CssClass="input"></asp:TextBox>
+                <label class="label">Usuario</label>
+                <asp:TextBox ID="txtUsuario" runat="server" CssClass="input"></asp:TextBox>
 
-            <label class="label">Contraseña</label>
-            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="input"></asp:TextBox>
+                <label class="label">Contraseña</label>
+                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="input"></asp:TextBox>
 
-            <asp:Button ID="btnLogin" runat="server" Text="Ingresar" CssClass="btn-login" />
+                <asp:Button ID="btnLogin" runat="server" Text="Ingresar" CssClass="btn-login" />
 
-            <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
+                <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
+
+            </div>
 
         </div>
 
-    </div>
-
-</form>
+    </form>
 
 </body>
 </html>
