@@ -33,7 +33,7 @@
 
                 <div class="separator"></div>
 
-                <!-- Sección Admin (puedes ocultarla luego por rol) -->
+                <!-- Administrador puede ocultarla luego por rol -->
                 <h3 class="sidebar-title">Administrador</h3>
                 <a class="nav-item" href="AdminProductos.aspx">Productos / Tasas</a>
                 <a class="nav-item" href="AdminUsuarios.aspx">Usuarios</a>
