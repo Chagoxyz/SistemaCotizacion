@@ -11,7 +11,7 @@ namespace SistemaCotizacion.Vistas
 {
 
 
-    public partial class Historial
+    public partial class Usuarios
     {
 
         /// <summary>
@@ -24,40 +24,67 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// txtBuscarCliente control.
+        /// txtNombreCompleto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBuscarCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreCompleto;
 
         /// <summary>
-        /// ddlFiltroProducto control.
+        /// txtNombreUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFiltroProducto;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreUsuario;
 
         /// <summary>
-        /// txtFecha control.
+        /// txtContrasena control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtFecha;
+        protected global::System.Web.UI.WebControls.TextBox txtContrasena;
 
         /// <summary>
-        /// btnBuscar control.
+        /// ddlEstado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnBuscar;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEstado;
+
+        /// <summary>
+        /// btnGuardar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardar;
+
+        /// <summary>
+        /// btnEditar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEditar;
+
+        /// <summary>
+        /// btnEliminar control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEliminar;
 
         /// <summary>
         /// btnLimpiar control.
@@ -69,21 +96,12 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.WebControls.Button btnLimpiar;
 
         /// <summary>
-        /// gvHistorial control.
+        /// gvUsuarios control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvHistorial;
-
-        /// <summary>
-        /// lblMensaje control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensaje;
+        protected global::System.Web.UI.WebControls.GridView gvUsuarios;
     }
 }

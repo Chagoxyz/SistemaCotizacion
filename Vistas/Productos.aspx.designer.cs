@@ -11,7 +11,7 @@ namespace SistemaCotizacion.Vistas
 {
 
 
-    public partial class ResultadoCotizacion
+    public partial class Productos
     {
 
         /// <summary>
@@ -24,120 +24,84 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// lblCliente control.
+        /// txtCodigo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblCliente;
+        protected global::System.Web.UI.WebControls.TextBox txtCodigo;
 
         /// <summary>
-        /// lblProducto control.
+        /// txtNombreProducto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblProducto;
+        protected global::System.Web.UI.WebControls.TextBox txtNombreProducto;
 
         /// <summary>
-        /// lblMonto control.
+        /// ddlMoneda control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMonto;
+        protected global::System.Web.UI.WebControls.DropDownList ddlMoneda;
 
         /// <summary>
-        /// lblPlazo control.
+        /// ddlEstadoProducto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlazo;
+        protected global::System.Web.UI.WebControls.DropDownList ddlEstadoProducto;
 
         /// <summary>
-        /// lblTasa control.
+        /// btnGuardarProducto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblTasa;
+        protected global::System.Web.UI.WebControls.Button btnGuardarProducto;
 
         /// <summary>
-        /// lblBruto control.
+        /// btnEditarProducto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBruto;
+        protected global::System.Web.UI.WebControls.Button btnEditarProducto;
 
         /// <summary>
-        /// lblImpuesto control.
+        /// btnEliminarProducto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblImpuesto;
+        protected global::System.Web.UI.WebControls.Button btnEliminarProducto;
 
         /// <summary>
-        /// lblNeto control.
+        /// btnLimpiarProducto control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblNeto;
+        protected global::System.Web.UI.WebControls.Button btnLimpiarProducto;
 
         /// <summary>
-        /// gvDetalle control.
+        /// gvProductos control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvDetalle;
-
-        /// <summary>
-        /// btnGuardar control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGuardar;
-
-        /// <summary>
-        /// btnPDF control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPDF;
-
-        /// <summary>
-        /// btnExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExcel;
-
-        /// <summary>
-        /// lblMensaje control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMensaje;
+        protected global::System.Web.UI.WebControls.GridView gvProductos;
     }
 }

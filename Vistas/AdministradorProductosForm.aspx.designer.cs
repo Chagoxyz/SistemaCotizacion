@@ -24,6 +24,15 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// vsResumen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary vsResumen;
+
+        /// <summary>
         /// ddlProductoAdmin control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace SistemaCotizacion.Vistas
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProductoAdmin;
+
+        /// <summary>
+        /// rfvProductoAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProductoAdmin;
 
         /// <summary>
         /// ddlPlazoAdmin control.
@@ -42,6 +60,15 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.WebControls.DropDownList ddlPlazoAdmin;
 
         /// <summary>
+        /// rfvPlazoAdmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPlazoAdmin;
+
+        /// <summary>
         /// txtTasa control.
         /// </summary>
         /// <remarks>
@@ -49,6 +76,24 @@ namespace SistemaCotizacion.Vistas
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtTasa;
+
+        /// <summary>
+        /// rfvTasa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvTasa;
+
+        /// <summary>
+        /// revTasa control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator revTasa;
 
         /// <summary>
         /// btnAgregar control.

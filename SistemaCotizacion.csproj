@@ -68,21 +68,28 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Estilos\AdministradorProductosStyles.css" />
-    <Content Include="Estilos\HistorialStyles.css" />
     <Content Include="Estilos\LoginStyles.css" />
     <Content Include="Estilos\MenuPrincipalStyles.css" />
     <Content Include="Estilos\NuevaCotizacionStyles.css" />
-    <Content Include="Estilos\ResultadoCotizacionStyles.css" />
+    <Content Include="Estilos\ProductosStyles.css" />
+    <Content Include="Estilos\UsuariosStyles.css" />
     <Content Include="Global.asax" />
     <Content Include="Vistas\AdministradorProductosForm.aspx" />
-    <Content Include="Vistas\HistorialForm.aspx" />
     <Content Include="Vistas\LoginForm.aspx" />
     <Content Include="Vistas\MenuPrincipalForm.aspx" />
     <Content Include="Vistas\NuevaCotizacionForm.aspx" />
-    <Content Include="Vistas\ResultadoCotizacionForm.aspx" />
+    <Content Include="Vistas\Productos.aspx" />
+    <Content Include="Vistas\Usuarios.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clases\CalculadoraInteres.cs" />
+    <Compile Include="Clases\Cliente.cs" />
+    <Compile Include="Clases\Cotizacion.cs" />
+    <Compile Include="Clases\DetalleCotizacion.cs" />
+    <Compile Include="Clases\PlazoTasa.cs" />
+    <Compile Include="Clases\Producto.cs" />
+    <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -93,13 +100,6 @@
     </Compile>
     <Compile Include="Vistas\AdministradorProductosForm.aspx.designer.cs">
       <DependentUpon>AdministradorProductosForm.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Vistas\HistorialForm.aspx.cs">
-      <DependentUpon>HistorialForm.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Vistas\HistorialForm.aspx.designer.cs">
-      <DependentUpon>HistorialForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vistas\LoginForm.aspx.cs">
       <DependentUpon>LoginForm.aspx</DependentUpon>
@@ -122,12 +122,19 @@
     <Compile Include="Vistas\NuevaCotizacionForm.aspx.designer.cs">
       <DependentUpon>NuevaCotizacionForm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\ResultadoCotizacionForm.aspx.cs">
-      <DependentUpon>ResultadoCotizacionForm.aspx</DependentUpon>
+    <Compile Include="Vistas\Productos.aspx.cs">
+      <DependentUpon>Productos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vistas\ResultadoCotizacionForm.aspx.designer.cs">
-      <DependentUpon>ResultadoCotizacionForm.aspx</DependentUpon>
+    <Compile Include="Vistas\Productos.aspx.designer.cs">
+      <DependentUpon>Productos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Usuarios.aspx.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vistas\Usuarios.aspx.designer.cs">
+      <DependentUpon>Usuarios.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -141,7 +148,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Clases\" />
     <Folder Include="Controladores\" />
     <Folder Include="Models\" />
     <Folder Include="Utilidades\" />

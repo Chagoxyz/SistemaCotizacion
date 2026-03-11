@@ -24,6 +24,15 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// vsLogin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary vsLogin;
+
+        /// <summary>
         /// txtUsuario control.
         /// </summary>
         /// <remarks>
@@ -33,6 +42,15 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.WebControls.TextBox txtUsuario;
 
         /// <summary>
+        /// rfvUsuario control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvUsuario;
+
+        /// <summary>
         /// txtPassword control.
         /// </summary>
         /// <remarks>
@@ -40,6 +58,15 @@ namespace SistemaCotizacion.Vistas
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
+
+        /// <summary>
+        /// rfvPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPassword;
 
         /// <summary>
         /// btnLogin control.
