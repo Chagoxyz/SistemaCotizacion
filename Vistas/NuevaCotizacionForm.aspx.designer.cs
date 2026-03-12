@@ -195,24 +195,6 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.WebControls.Button btnGuardar;
 
         /// <summary>
-        /// btnPDF control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPDF;
-
-        /// <summary>
-        /// btnExcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnExcel;
-
-        /// <summary>
         /// lblMensaje control.
         /// </summary>
         /// <remarks>

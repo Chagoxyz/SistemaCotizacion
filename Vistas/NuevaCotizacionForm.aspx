@@ -183,8 +183,6 @@
         <div class="acciones">
 
             <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cotización" CssClass="btn-primary"/>
-            <asp:Button ID="btnPDF" runat="server" Text="Exportar PDF" CssClass="btn-sec"/>
-            <asp:Button ID="btnExcel" runat="server" Text="Exportar Excel" CssClass="btn-sec"/>
 
         </div>
 
