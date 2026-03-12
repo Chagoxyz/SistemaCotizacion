@@ -68,18 +68,30 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Estilos\AdministradorProductosStyles.css" />
+    <Content Include="Estilos\HistorialCotizacionesStyles.css" />
     <Content Include="Estilos\LoginStyles.css" />
     <Content Include="Estilos\MenuPrincipalStyles.css" />
+    <Content Include="Estilos\MonedasStyles.css" />
     <Content Include="Estilos\NuevaCotizacionStyles.css" />
+    <Content Include="Estilos\PerfilStyles.css" />
+    <Content Include="Estilos\PlazosStyles.css" />
     <Content Include="Estilos\ProductosStyles.css" />
+    <Content Include="Estilos\ReportesStyles.css" />
+    <Content Include="Estilos\TasasStyles.css" />
     <Content Include="Estilos\UsuariosStyles.css" />
     <Content Include="Global.asax" />
     <Content Include="Vistas\AdministradorProductosForm.aspx" />
+    <Content Include="Vistas\HistorialCotizacionesForm.aspx" />
     <Content Include="Vistas\LoginForm.aspx" />
     <Content Include="Vistas\MenuPrincipalForm.aspx" />
+    <Content Include="Vistas\MonedasForm.aspx" />
     <Content Include="Vistas\NuevaCotizacionForm.aspx" />
-    <Content Include="Vistas\Productos.aspx" />
-    <Content Include="Vistas\Usuarios.aspx" />
+    <Content Include="Vistas\PerfilForm.aspx" />
+    <Content Include="Vistas\PlazosForm.aspx" />
+    <Content Include="Vistas\ProductosForm.aspx" />
+    <Content Include="Vistas\ReportesForm.aspx" />
+    <Content Include="Vistas\TasasForm.aspx" />
+    <Content Include="Vistas\UsuariosForm.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -87,8 +99,13 @@
     <Compile Include="Clases\Cliente.cs" />
     <Compile Include="Clases\Cotizacion.cs" />
     <Compile Include="Clases\DetalleCotizacion.cs" />
+    <Compile Include="Clases\Moneda.cs" />
+    <Compile Include="Clases\Plazo.cs" />
     <Compile Include="Clases\PlazoTasa.cs" />
     <Compile Include="Clases\Producto.cs" />
+    <Compile Include="Clases\Reporte.cs" />
+    <Compile Include="Clases\Rol.cs" />
+    <Compile Include="Clases\Sesion.cs" />
     <Compile Include="Clases\Usuario.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -100,6 +117,13 @@
     </Compile>
     <Compile Include="Vistas\AdministradorProductosForm.aspx.designer.cs">
       <DependentUpon>AdministradorProductosForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\HistorialCotizacionesForm.aspx.cs">
+      <DependentUpon>HistorialCotizacionesForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vistas\HistorialCotizacionesForm.aspx.designer.cs">
+      <DependentUpon>HistorialCotizacionesForm.aspx</DependentUpon>
     </Compile>
     <Compile Include="Vistas\LoginForm.aspx.cs">
       <DependentUpon>LoginForm.aspx</DependentUpon>
@@ -115,6 +139,13 @@
     <Compile Include="Vistas\MenuPrincipalForm.aspx.designer.cs">
       <DependentUpon>MenuPrincipalForm.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\MonedasForm.aspx.cs">
+      <DependentUpon>MonedasForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vistas\MonedasForm.aspx.designer.cs">
+      <DependentUpon>MonedasForm.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\NuevaCotizacionForm.aspx.cs">
       <DependentUpon>NuevaCotizacionForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -122,19 +153,47 @@
     <Compile Include="Vistas\NuevaCotizacionForm.aspx.designer.cs">
       <DependentUpon>NuevaCotizacionForm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\Productos.aspx.cs">
-      <DependentUpon>Productos.aspx</DependentUpon>
+    <Compile Include="Vistas\PerfilForm.aspx.cs">
+      <DependentUpon>PerfilForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vistas\Productos.aspx.designer.cs">
-      <DependentUpon>Productos.aspx</DependentUpon>
+    <Compile Include="Vistas\PerfilForm.aspx.designer.cs">
+      <DependentUpon>PerfilForm.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\Usuarios.aspx.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
+    <Compile Include="Vistas\PlazosForm.aspx.cs">
+      <DependentUpon>PlazosForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Vistas\Usuarios.aspx.designer.cs">
-      <DependentUpon>Usuarios.aspx</DependentUpon>
+    <Compile Include="Vistas\PlazosForm.aspx.designer.cs">
+      <DependentUpon>PlazosForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ProductosForm.aspx.cs">
+      <DependentUpon>ProductosForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vistas\ProductosForm.aspx.designer.cs">
+      <DependentUpon>ProductosForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\ReportesForm.aspx.cs">
+      <DependentUpon>ReportesForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vistas\ReportesForm.aspx.designer.cs">
+      <DependentUpon>ReportesForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\TasasForm.aspx.cs">
+      <DependentUpon>TasasForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vistas\TasasForm.aspx.designer.cs">
+      <DependentUpon>TasasForm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\UsuariosForm.aspx.cs">
+      <DependentUpon>UsuariosForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Vistas\UsuariosForm.aspx.designer.cs">
+      <DependentUpon>UsuariosForm.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,9 @@ namespace SistemaCotizacion.Clases
         public string NombreCompleto { get; set; }
         public string NombreUsuario { get; set; }
         public string Contrasena { get; set; }
-        public string Rol { get; set; }
+
+        public Rol Rol { get; set; }
+
         public string Estado { get; set; }
     }
 }
