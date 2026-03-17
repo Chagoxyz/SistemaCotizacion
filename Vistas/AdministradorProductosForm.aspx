@@ -14,7 +14,7 @@
         <div class="topbar">
             <div class="logo">Sistema APF - Administrador</div>
             <div>
-               <a class="volver" href="MenuPrincipal.aspx">← Volver al menú</a>
+               <a class="volver" href="MenuPrincipalForm.aspx">← Menú Principal</a>
             </div>
         </div>
 
