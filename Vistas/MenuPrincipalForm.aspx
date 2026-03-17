@@ -10,41 +10,38 @@
 
 <form id="form1" runat="server">
 
-    <!-- Barra superior -->
     <div class="topbar">
         <div class="logo">Sistema de Cotización APF</div>
 
         <div class="topbar-right">
             <span class="user">Usuario: <strong>Invitado</strong></span>
-            <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar sesión" CssClass="btn-logout" CausesValidation="false" />
+            <asp:Button ID="btnCerrarSesion" runat="server" Text="Cerrar sesión"
+                CssClass="btn-logout" CausesValidation="false" OnClick="btnCerrarSesion_Click" />
         </div>
     </div>
 
-    <!-- Contenido principal -->
     <div class="layout">
 
-        <!-- Menú lateral -->
         <div class="sidebar">
             <h3 class="sidebar-title">Cotizaciones</h3>
 
             <a class="nav-item" href="NuevaCotizacionForm.aspx">Nueva Cotización</a>
-            <a class="nav-item" href="HistorialCotizaciones.aspx">Historial de Cotizaciones</a>
-            <a class="nav-item" href="Reportes.aspx">Reportes</a>
-            <a class="nav-item" href="Perfil.aspx">Mi Perfil</a>
+            <a class="nav-item" href="HistorialCotizacionesForm.aspx">Historial de Cotizaciones</a>
+            <a class="nav-item" href="ReportesForm.aspx">Reportes</a>
+            <a class="nav-item" href="PerfilForm.aspx">Mi Perfil</a>
 
             <div class="separator"></div>
 
             <h3 class="sidebar-title">Mantenimientos</h3>
 
-            <a class="nav-item" href="Productos.aspx">Gestión de Productos</a>
-            <a class="nav-item" href="Usuarios.aspx">Usuarios</a>
-            <a class="nav-item" href="Monedas.aspx">Monedas</a>
-            <a class="nav-item" href="Plazos.aspx">Plazos</a>
-            <a class="nav-item" href="Tasas.aspx">Tasas</a>
+            <a class="nav-item" href="ProductosForm.aspx">Gestión de Productos</a>
+            <a class="nav-item" href="UsuariosForm.aspx">Usuarios</a>
+            <a class="nav-item" href="MonedasForm.aspx">Monedas</a>
+            <a class="nav-item" href="PlazosForm.aspx">Plazos</a>
+            <a class="nav-item" href="TasasForm.aspx">Tasas</a>
             <a class="nav-item" href="AdministradorProductosForm.aspx">Productos / Tasas / Plazos</a>
         </div>
 
-        <!-- Área central -->
         <div class="content">
 
             <div class="card">
@@ -62,27 +59,27 @@
                     <p>Crear una cotización ingresando producto, monto y plazo.</p>
                 </a>
 
-                <a class="action-card" href="HistorialCotizaciones.aspx">
+                <a class="action-card" href="HistorialCotizacionesForm.aspx">
                     <h3>Historial</h3>
                     <p>Consultar las cotizaciones registradas en el sistema.</p>
                 </a>
 
-                <a class="action-card" href="Reportes.aspx">
+                <a class="action-card" href="ReportesForm.aspx">
                     <h3>Reportes</h3>
                     <p>Visualizar y preparar reportes en PDF o Excel.</p>
                 </a>
 
-                <a class="action-card" href="Productos.aspx">
+                <a class="action-card" href="ProductosForm.aspx">
                     <h3>Productos</h3>
                     <p>Gestionar los productos de inversión disponibles.</p>
                 </a>
 
-                <a class="action-card" href="Usuarios.aspx">
+                <a class="action-card" href="UsuariosForm.aspx">
                     <h3>Usuarios</h3>
                     <p>Administrar usuarios y roles del sistema.</p>
                 </a>
 
-                <a class="action-card" href="Perfil.aspx">
+                <a class="action-card" href="PerfilForm.aspx">
                     <h3>Mi Perfil</h3>
                     <p>Actualizar la información personal del usuario.</p>
                 </a>

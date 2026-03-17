@@ -42,9 +42,11 @@
                 </div>
 
                 <div class="acciones">
-                    <asp:Button ID="btnGuardarPerfil" runat="server" Text="Guardar Cambios" CssClass="btn-primary" />
-                    <asp:Button ID="btnCancelarPerfil" runat="server" Text="Cancelar" CssClass="btn-sec" />
-                </div>
+                        <asp:Button ID="btnGuardarPerfil" runat="server" Text="Guardar Cambios" CssClass="btn-primary" OnClick="btnGuardarPerfil_Click" />
+                        <asp:Button ID="btnCancelarPerfil" runat="server" Text="Cancelar" CssClass="btn-sec" OnClick="btnCancelarPerfil_Click" CausesValidation="false" />
+                    </div>
+
+                    <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
             </div>
         </div>

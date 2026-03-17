@@ -40,9 +40,11 @@
                 </div>
 
                 <div class="acciones">
-                    <asp:Button ID="btnGenerarReporte" runat="server" Text="Generar Reporte" CssClass="btn-primary" />
-                    <asp:Button ID="btnLimpiarReporte" runat="server" Text="Limpiar" CssClass="btn-sec" />
-                </div>
+                        <asp:Button ID="btnGenerarReporte" runat="server" Text="Generar Reporte" CssClass="btn-primary" OnClick="btnGenerarReporte_Click" />
+                        <asp:Button ID="btnLimpiarReporte" runat="server" Text="Limpiar" CssClass="btn-sec" OnClick="btnLimpiarReporte_Click" CausesValidation="false" />
+                    </div>
+
+                    <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
                 <h3 class="seccion">Vista previa del reporte</h3>
 

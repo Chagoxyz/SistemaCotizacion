@@ -38,9 +38,11 @@
                 </div>
 
                 <div class="acciones">
-                    <asp:Button ID="btnBuscarHistorial" runat="server" Text="Buscar" CssClass="btn-primary" />
-                    <asp:Button ID="btnLimpiarHistorial" runat="server" Text="Limpiar" CssClass="btn-sec" />
-                </div>
+                        <asp:Button ID="btnBuscarHistorial" runat="server" Text="Buscar" CssClass="btn-primary" OnClick="btnBuscarHistorial_Click" />
+                        <asp:Button ID="btnLimpiarHistorial" runat="server" Text="Limpiar" CssClass="btn-sec" OnClick="btnLimpiarHistorial_Click" CausesValidation="false" />
+                    </div>
+
+                    <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
                 <h3 class="seccion">Resultados</h3>
 

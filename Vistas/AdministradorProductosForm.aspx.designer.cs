@@ -60,13 +60,13 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.WebControls.DropDownList ddlPlazoAdmin;
 
         /// <summary>
-        /// rfvPlazoAdmin control.
+        /// RequiredFieldValidator1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvPlazoAdmin;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
 
         /// <summary>
         /// txtTasa control.

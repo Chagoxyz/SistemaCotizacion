@@ -11,7 +11,7 @@
 
     <div class="topbar">
         <div class="logo">Mantenimiento de Productos</div>
-        <a class="volver" href="MenuPrincipal.aspx">← Menú Principal</a>
+        <a class="volver" href="MenuPrincipalForm.aspx">← Menú Principal</a>
     </div>
 
     <div class="contenedor">
@@ -49,12 +49,14 @@
                 </div>
             </div>
 
-            <div class="acciones">
-                <asp:Button ID="btnGuardarProducto" runat="server" Text="Guardar" CssClass="btn-primary" />
-                <asp:Button ID="btnEditarProducto" runat="server" Text="Editar" CssClass="btn-sec" />
-                <asp:Button ID="btnEliminarProducto" runat="server" Text="Eliminar" CssClass="btn-danger" />
-                <asp:Button ID="btnLimpiarProducto" runat="server" Text="Limpiar" CssClass="btn-sec" />
-            </div>
+           <div class="acciones">
+                    <asp:Button ID="btnGuardarProducto" runat="server" Text="Guardar" CssClass="btn-primary" OnClick="btnGuardarProducto_Click" />
+                    <asp:Button ID="btnEditarProducto" runat="server" Text="Editar" CssClass="btn-sec" OnClick="btnEditarProducto_Click" />
+                    <asp:Button ID="btnEliminarProducto" runat="server" Text="Eliminar" CssClass="btn-danger" OnClick="btnEliminarProducto_Click" />
+                    <asp:Button ID="btnLimpiarProducto" runat="server" Text="Limpiar" CssClass="btn-sec" OnClick="btnLimpiarProducto_Click" CausesValidation="false" />
+                </div>
+
+                <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
             <h3 class="seccion">Lista de Productos</h3>
 

@@ -51,10 +51,12 @@
                 </div>
 
                 <div class="acciones">
-                    <asp:Button ID="btnGuardarTasa" runat="server" Text="Guardar" CssClass="btn-primary" />
-                    <asp:Button ID="btnEditarTasa" runat="server" Text="Editar" CssClass="btn-sec" />
-                    <asp:Button ID="btnEliminarTasa" runat="server" Text="Eliminar" CssClass="btn-danger" />
-                </div>
+                        <asp:Button ID="btnGuardarTasa" runat="server" Text="Guardar" CssClass="btn-primary" OnClick="btnGuardarTasa_Click" />
+                        <asp:Button ID="btnEditarTasa" runat="server" Text="Editar" CssClass="btn-sec" OnClick="btnEditarTasa_Click" />
+                        <asp:Button ID="btnEliminarTasa" runat="server" Text="Eliminar" CssClass="btn-danger" OnClick="btnEliminarTasa_Click" />
+                    </div>
+
+                    <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
                 <h3 class="seccion">Lista de Tasas</h3>
 

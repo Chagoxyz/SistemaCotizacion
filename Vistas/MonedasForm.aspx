@@ -45,10 +45,12 @@
                 </div>
 
                 <div class="acciones">
-                    <asp:Button ID="btnGuardarMoneda" runat="server" Text="Guardar" CssClass="btn-primary" />
-                    <asp:Button ID="btnEditarMoneda" runat="server" Text="Editar" CssClass="btn-sec" />
-                    <asp:Button ID="btnEliminarMoneda" runat="server" Text="Eliminar" CssClass="btn-danger" />
-                </div>
+                        <asp:Button ID="btnGuardarMoneda" runat="server" Text="Guardar" CssClass="btn-primary" OnClick="btnGuardarMoneda_Click" />
+                        <asp:Button ID="btnEditarMoneda" runat="server" Text="Editar" CssClass="btn-sec" OnClick="btnEditarMoneda_Click" />
+                        <asp:Button ID="btnEliminarMoneda" runat="server" Text="Eliminar" CssClass="btn-danger" OnClick="btnEliminarMoneda_Click" />
+                    </div>
+
+                    <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
                 <h3 class="seccion">Lista de Monedas</h3>
 

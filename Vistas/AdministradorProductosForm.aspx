@@ -14,7 +14,7 @@
         <div class="topbar">
             <div class="logo">Sistema APF - Administrador</div>
             <div>
-                <a class="volver" href="MenuPrincipal.aspx">← Volver al menú</a>
+               <a class="volver" href="MenuPrincipal.aspx">← Volver al menú</a>
             </div>
         </div>
 
@@ -25,9 +25,10 @@
                 <h2>Administración de Productos / Tasas / Plazos</h2>
 
                 <asp:ValidationSummary ID="vsResumen" runat="server"
-                    CssClass="mensaje"
-                    ForeColor="Red"
-                    HeaderText="Por favor corrija los siguientes errores:" />
+                        CssClass="mensaje"
+                        ForeColor="Red"
+                        HeaderText="Por favor corrija los siguientes errores:"
+                        ValidationGroup="vgAdminProductos" />
 
                 <!-- FILTROS -->
                 <div class="filtros">
@@ -48,7 +49,8 @@
                             InitialValue=""
                             ErrorMessage="Debe seleccionar un producto."
                             ForeColor="Red"
-                            Display="Dynamic" />
+                            Display="Dynamic"
+                            ValidationGroup="vgAdminProductos" />
                     </div>
 
                     <div>
@@ -81,14 +83,14 @@
                             <asp:ListItem Text="23 meses" Value="23 meses" />
                             <asp:ListItem Text="24 meses" Value="24 meses" />
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator
-                            ID="rfvPlazoAdmin"
+                      <asp:RequiredFieldValidator
+                            ID="RequiredFieldValidator1"
                             runat="server"
-                            ControlToValidate="ddlPlazoAdmin"
-                            InitialValue=""
-                            ErrorMessage="Debe seleccionar un plazo."
+                            ControlToValidate="txtTasa"
+                            ErrorMessage="La tasa anual es obligatoria."
                             ForeColor="Red"
-                            Display="Dynamic" />
+                            Display="Dynamic"
+                            ValidationGroup="vgAdminProductos" />
                     </div>
 
                     <div>
@@ -110,17 +112,23 @@
                             ValidationExpression="^\d+(\.\d{1,4})?$"
                             ErrorMessage="Ingrese una tasa válida. Ejemplo: 4.10"
                             ForeColor="Red"
-                            Display="Dynamic" />
+                            Display="Dynamic"
+                            ValidationGroup="vgAdminProductos" />
                     </div>
 
                 </div>
 
                 <!-- BOTONES -->
-                <div class="botones">
-                    <asp:Button ID="btnAgregar" runat="server" Text="Agregar / Guardar" CssClass="btn-primary" ValidationGroup="vgAdminProductos" />
-                    <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn-sec" ValidationGroup="vgAdminProductos" />
-                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn-danger" CausesValidation="false" />
-                </div>
+               <div class="botones">
+                <asp:Button ID="btnAgregar" runat="server" Text="Agregar / Guardar" CssClass="btn-primary"
+                    ValidationGroup="vgAdminProductos" OnClick="btnAgregar_Click" />
+
+                <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn-sec"
+                    ValidationGroup="vgAdminProductos" OnClick="btnEditar_Click" />
+
+                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn-danger"
+                    CausesValidation="false" OnClick="btnEliminar_Click" />
+            </div>
 
                 <!-- TABLA -->
                 <h3 class="seccion">Tabla de Tasas Configuradas</h3>

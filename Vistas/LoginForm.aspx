@@ -46,12 +46,13 @@
                     Display="Dynamic"
                     ValidationGroup="vgLogin" />
 
-                <asp:Button
+               <asp:Button
                     ID="btnLogin"
                     runat="server"
                     Text="Ingresar"
                     CssClass="btn-login"
-                    ValidationGroup="vgLogin" />
+                    ValidationGroup="vgLogin"
+                    OnClick="btnLogin_Click" />
 
                 <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 

@@ -4,6 +4,14 @@
     background: #FFFFFF;
     color: #000000;
 }
+
+.mensaje {
+    display: block;
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .topbar {
     background: #1693A5;
     color: #FFFFFF;

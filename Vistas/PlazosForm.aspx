@@ -48,10 +48,12 @@
                 </div>
 
                 <div class="acciones">
-                    <asp:Button ID="btnGuardarPlazo" runat="server" Text="Guardar" CssClass="btn-primary" />
-                    <asp:Button ID="btnEditarPlazo" runat="server" Text="Editar" CssClass="btn-sec" />
-                    <asp:Button ID="btnEliminarPlazo" runat="server" Text="Eliminar" CssClass="btn-danger" />
-                </div>
+                        <asp:Button ID="btnGuardarPlazo" runat="server" Text="Guardar" CssClass="btn-primary" OnClick="btnGuardarPlazo_Click" />
+                        <asp:Button ID="btnEditarPlazo" runat="server" Text="Editar" CssClass="btn-sec" OnClick="btnEditarPlazo_Click" />
+                        <asp:Button ID="btnEliminarPlazo" runat="server" Text="Eliminar" CssClass="btn-danger" OnClick="btnEliminarPlazo_Click" />
+                    </div>
+
+                    <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
                 <h3 class="seccion">Lista de Plazos</h3>
 
