@@ -39,7 +39,6 @@
             <a class="nav-item" href="MonedasForm.aspx">Monedas</a>
             <a class="nav-item" href="PlazosForm.aspx">Plazos</a>
             <a class="nav-item" href="TasasForm.aspx">Tasas</a>
-            <a class="nav-item" href="AdministradorProductosForm.aspx">Productos / Tasas / Plazos</a>
         </div>
 
         <div class="content">

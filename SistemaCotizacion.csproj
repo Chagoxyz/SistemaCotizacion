@@ -80,7 +80,6 @@
     <Content Include="Estilos\TasasStyles.css" />
     <Content Include="Estilos\UsuariosStyles.css" />
     <Content Include="Global.asax" />
-    <Content Include="Vistas\AdministradorProductosForm.aspx" />
     <Content Include="Vistas\HistorialCotizacionesForm.aspx" />
     <Content Include="Vistas\LoginForm.aspx" />
     <Content Include="Vistas\MenuPrincipalForm.aspx" />
@@ -111,13 +110,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vistas\AdministradorProductosForm.aspx.cs">
-      <DependentUpon>AdministradorProductosForm.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Vistas\AdministradorProductosForm.aspx.designer.cs">
-      <DependentUpon>AdministradorProductosForm.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Vistas\HistorialCotizacionesForm.aspx.cs">
       <DependentUpon>HistorialCotizacionesForm.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
