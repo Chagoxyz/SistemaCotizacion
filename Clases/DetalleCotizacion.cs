@@ -4,6 +4,8 @@ namespace SistemaCotizacion.Clases
 {
     public class DetalleCotizacion
     {
+        public int IdDetalle { get; set; }
+        public int IdCotizacion { get; set; }
         public int Mes { get; set; }
         public decimal Monto { get; set; }
         public decimal InteresBruto { get; set; }
