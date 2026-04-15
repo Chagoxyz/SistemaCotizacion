@@ -38,22 +38,24 @@
                 </div>
 
                 <div class="acciones">
-                        <asp:Button ID="btnBuscarHistorial" runat="server" Text="Buscar" CssClass="btn-primary" OnClick="btnBuscarHistorial_Click" />
-                        <asp:Button ID="btnLimpiarHistorial" runat="server" Text="Limpiar" CssClass="btn-sec" OnClick="btnLimpiarHistorial_Click" CausesValidation="false" />
-                    </div>
+                    <asp:Button ID="btnBuscarHistorial" runat="server" Text="Buscar" CssClass="btn-primary" OnClick="btnBuscarHistorial_Click" />
+                    <asp:Button ID="btnLimpiarHistorial" runat="server" Text="Limpiar" CssClass="btn-sec" OnClick="btnLimpiarHistorial_Click" CausesValidation="false" />
+                </div>
 
-                    <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
+                <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
                 <h3 class="seccion">Resultados</h3>
 
-                <asp:GridView ID="gvHistorialCotizaciones" runat="server" CssClass="tabla" AutoGenerateColumns="False">
+                <asp:GridView ID="gvHistorialCotizaciones" runat="server" CssClass="tabla" AutoGenerateColumns="False"
+                         EmptyDataText="No hay cotizaciones para mostrar." ShowHeaderWhenEmpty="true">
                     <Columns>
                         <asp:BoundField HeaderText="Número" DataField="NumeroCotizacion" />
                         <asp:BoundField HeaderText="Cliente" DataField="Cliente" />
+                        <asp:BoundField HeaderText="Usuario" DataField="Usuario" />
                         <asp:BoundField HeaderText="Producto" DataField="Producto" />
-                        <asp:BoundField HeaderText="Monto" DataField="Monto" />
+                        <asp:BoundField HeaderText="Monto" DataField="Monto" DataFormatString="{0:N2}" />
                         <asp:BoundField HeaderText="Plazo" DataField="Plazo" />
-                        <asp:BoundField HeaderText="Fecha" DataField="Fecha" />
+                        <asp:BoundField HeaderText="Fecha" DataField="Fecha" DataFormatString="{0:dd/MM/yyyy hh:mm tt}" />
                     </Columns>
                 </asp:GridView>
 

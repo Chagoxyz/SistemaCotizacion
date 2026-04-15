@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using SistemaCotizacion.Utilidades;
 
 namespace SistemaCotizacion.Vistas
 {
@@ -9,6 +12,7 @@ namespace SistemaCotizacion.Vistas
             if (!IsPostBack)
             {
                 lblMensaje.Text = string.Empty;
+                Session.Clear();
             }
         }
 
@@ -22,15 +26,38 @@ namespace SistemaCotizacion.Vistas
                     return;
                 }
 
-                lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Ingreso correcto.";
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
+                {
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Login_Validar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@NombreUsuario", txtUsuario.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Contrasena", txtPassword.Text.Trim());
 
-                Response.Redirect("MenuPrincipalForm.aspx");
+                    cn.Open();
+                    SqlDataReader dr = cmd.ExecuteReader();
+
+                    if (dr.Read())
+                    {
+                        Session.Clear();
+
+                        Session["IdUsuario"] = Convert.ToInt32(dr["IdUsuario"]);
+                        Session["NombreCompleto"] = dr["NombreCompleto"].ToString();
+                        Session["NombreUsuario"] = dr["NombreUsuario"].ToString();
+                        Session["IdRol"] = Convert.ToInt32(dr["IdRol"]);
+
+                        Response.Redirect("MenuPrincipalForm.aspx");
+                    }
+                    else
+                    {
+                        lblMensaje.ForeColor = System.Drawing.Color.Red;
+                        lblMensaje.Text = "Usuario o contraseña incorrectos.";
+                    }
+                }
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al ingresar: " + ex.Message;
+                lblMensaje.Text = "Error al iniciar sesión: " + ex.Message;
             }
         }
     }

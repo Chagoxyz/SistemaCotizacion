@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
+using SistemaCotizacion.Utilidades;
 
 namespace SistemaCotizacion.Vistas
 {
@@ -8,7 +12,44 @@ namespace SistemaCotizacion.Vistas
         {
             if (!IsPostBack)
             {
+                CargarMonedas();
+                CargarProductos();
                 lblMensaje.Text = string.Empty;
+            }
+        }
+
+        private void CargarMonedas()
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Moneda_ListarActivas", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlMoneda.DataSource = dt;
+                ddlMoneda.DataTextField = "NombreMoneda";
+                ddlMoneda.DataValueField = "IdMoneda";
+                ddlMoneda.DataBind();
+                ddlMoneda.Items.Insert(0, new ListItem("Seleccione...", ""));
+            }
+        }
+
+        private void CargarProductos()
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Producto_Listar", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                gvProductos.DataSource = dt;
+                gvProductos.DataBind();
             }
         }
 
@@ -16,20 +57,28 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (CamposVacios())
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Por favor complete todos los campos del producto.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Producto_Insertar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CodigoProducto", txtCodigo.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NombreProducto", txtNombreProducto.Text.Trim());
+                    cmd.Parameters.AddWithValue("@IdMoneda", Convert.ToInt32(ddlMoneda.SelectedValue));
+                    cmd.Parameters.AddWithValue("@Estado", ddlEstadoProducto.SelectedValue);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Producto procesado correctamente.";
+                lblMensaje.Text = "Producto guardado correctamente.";
+                Limpiar();
+                CargarProductos();
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al guardar: " + ex.Message;
+                lblMensaje.Text = "Error al guardar producto: " + ex.Message;
             }
         }
 
@@ -37,20 +86,28 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (CamposVacios())
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Debe completar la información antes de editar.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Producto_Actualizar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CodigoProducto", txtCodigo.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NombreProducto", txtNombreProducto.Text.Trim());
+                    cmd.Parameters.AddWithValue("@IdMoneda", Convert.ToInt32(ddlMoneda.SelectedValue));
+                    cmd.Parameters.AddWithValue("@Estado", ddlEstadoProducto.SelectedValue);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Edición simulada correctamente.";
+                lblMensaje.Text = "Producto actualizado correctamente.";
+                Limpiar();
+                CargarProductos();
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al editar: " + ex.Message;
+                lblMensaje.Text = "Error al editar producto: " + ex.Message;
             }
         }
 
@@ -58,38 +115,40 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtCodigo.Text))
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Ingrese el código del producto para simular la eliminación.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Producto_Eliminar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CodigoProducto", txtCodigo.Text.Trim());
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Eliminación simulada correctamente.";
+                lblMensaje.Text = "Producto eliminado correctamente.";
+                Limpiar();
+                CargarProductos();
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al eliminar: " + ex.Message;
+                lblMensaje.Text = "Error al eliminar producto: " + ex.Message;
             }
         }
 
         protected void btnLimpiarProducto_Click(object sender, EventArgs e)
         {
-            txtCodigo.Text = string.Empty;
-            txtNombreProducto.Text = string.Empty;
-            ddlMoneda.SelectedIndex = 0;
-            ddlEstadoProducto.SelectedIndex = 0;
-            lblMensaje.Text = string.Empty;
+            Limpiar();
+            lblMensaje.Text = "";
         }
 
-        private bool CamposVacios()
+        private void Limpiar()
         {
-            return string.IsNullOrWhiteSpace(txtCodigo.Text) ||
-                   string.IsNullOrWhiteSpace(txtNombreProducto.Text) ||
-                   string.IsNullOrWhiteSpace(ddlMoneda.SelectedValue) ||
-                   string.IsNullOrWhiteSpace(ddlEstadoProducto.SelectedValue);
+            txtCodigo.Text = "";
+            txtNombreProducto.Text = "";
+            ddlMoneda.SelectedIndex = 0;
+            ddlEstadoProducto.SelectedIndex = 0;
         }
     }
 }

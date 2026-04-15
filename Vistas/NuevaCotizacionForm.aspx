@@ -92,12 +92,10 @@
 
                     <div>
                         <label>Producto</label>
-                        <asp:DropDownList ID="ddlProducto" runat="server" CssClass="input">
+                        <asp:DropDownList ID="ddlProducto" runat="server" CssClass="input"
+                            AutoPostBack="true"
+                            OnSelectedIndexChanged="ddlProducto_SelectedIndexChanged">
                             <asp:ListItem Text="Seleccione..." Value="" />
-                            <asp:ListItem Text="Colón Crece (CC)" Value="CC" />
-                            <asp:ListItem Text="Colón Futuro Plus (CF)" Value="CF" />
-                            <asp:ListItem Text="Dólar Seguro (DS)" Value="DS" />
-                            <asp:ListItem Text="Dólar Visión (DV)" Value="DV" />
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="rfvProducto" runat="server"
                             ControlToValidate="ddlProducto"
@@ -109,34 +107,14 @@
                     </div>
 
                     <div>
+                        <label>Moneda</label>
+                        <asp:TextBox ID="txtMoneda" runat="server" CssClass="input" ReadOnly="true"></asp:TextBox>
+                    </div>
+
+                    <div>
                         <label>Plazo</label>
                         <asp:DropDownList ID="ddlPlazo" runat="server" CssClass="input">
                             <asp:ListItem Text="Seleccione..." Value="" />
-                            <asp:ListItem Text="15 días" Value="15 días" />
-                            <asp:ListItem Text="1 mes" Value="1 mes" />
-                            <asp:ListItem Text="2 meses" Value="2 meses" />
-                            <asp:ListItem Text="3 meses" Value="3 meses" />
-                            <asp:ListItem Text="4 meses" Value="4 meses" />
-                            <asp:ListItem Text="5 meses" Value="5 meses" />
-                            <asp:ListItem Text="6 meses" Value="6 meses" />
-                            <asp:ListItem Text="7 meses" Value="7 meses" />
-                            <asp:ListItem Text="8 meses" Value="8 meses" />
-                            <asp:ListItem Text="9 meses" Value="9 meses" />
-                            <asp:ListItem Text="10 meses" Value="10 meses" />
-                            <asp:ListItem Text="11 meses" Value="11 meses" />
-                            <asp:ListItem Text="12 meses" Value="12 meses" />
-                            <asp:ListItem Text="13 meses" Value="13 meses" />
-                            <asp:ListItem Text="14 meses" Value="14 meses" />
-                            <asp:ListItem Text="15 meses" Value="15 meses" />
-                            <asp:ListItem Text="16 meses" Value="16 meses" />
-                            <asp:ListItem Text="17 meses" Value="17 meses" />
-                            <asp:ListItem Text="18 meses" Value="18 meses" />
-                            <asp:ListItem Text="19 meses" Value="19 meses" />
-                            <asp:ListItem Text="20 meses" Value="20 meses" />
-                            <asp:ListItem Text="21 meses" Value="21 meses" />
-                            <asp:ListItem Text="22 meses" Value="22 meses" />
-                            <asp:ListItem Text="23 meses" Value="23 meses" />
-                            <asp:ListItem Text="24 meses" Value="24 meses" />
                         </asp:DropDownList>
                         <asp:RequiredFieldValidator ID="rfvPlazo" runat="server"
                             ControlToValidate="ddlPlazo"
@@ -177,6 +155,11 @@
                         CssClass="btn-sec"
                         CausesValidation="false"
                         OnClick="btnLimpiar_Click" />
+
+                    <asp:Button ID="Button1" runat="server" Text="Guardar Cotización" 
+                        CssClass="btn-primary" 
+                        CausesValidation="false" 
+                        OnClick="btnGuardar_Click" />
                 </div>
 
             </div>
@@ -232,7 +215,7 @@
                 </asp:GridView>
 
                 <div class="acciones">
-                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cotización" CssClass="btn-primary" CausesValidation="false" />
+                    <asp:Button ID="btnGuardar" runat="server" Text="Guardar Cotización" CssClass="btn-primary" CausesValidation="false" OnClick="btnGuardar_Click" />
                 </div>
 
                 <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje" />

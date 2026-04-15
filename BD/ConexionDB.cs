@@ -7,7 +7,7 @@ namespace SistemaCotizacion.Utilidades
     {
         public static SqlConnection ObtenerConexion()
         {
-            string cadena = ConfigurationManager.ConnectionStrings["cnSistemaCotizacion"].ConnectionString;
+            string cadena = ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
             return new SqlConnection(cadena);
         }
     }

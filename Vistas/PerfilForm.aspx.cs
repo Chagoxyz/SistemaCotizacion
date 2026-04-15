@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using SistemaCotizacion.Utilidades;
 
 namespace SistemaCotizacion.Vistas
 {
@@ -6,9 +9,36 @@ namespace SistemaCotizacion.Vistas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["IdUsuario"] == null)
+            {
+                Response.Redirect("LoginForm.aspx");
+            }
+
             if (!IsPostBack)
             {
+                CargarPerfil();
                 lblMensaje.Text = string.Empty;
+            }
+        }
+
+        private void CargarPerfil()
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Perfil_Obtener", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IdUsuario", Convert.ToInt32(Session["IdUsuario"]));
+
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    txtNombrePerfil.Text = dr["NombreCompleto"].ToString();
+                    txtCorreoPerfil.Text = dr["NombreUsuario"].ToString();
+                    txtTelefonoPerfil.Text = "";
+                    txtContrasenaPerfil.Text = dr["Contrasena"].ToString();
+                }
             }
         }
 
@@ -16,38 +46,33 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (CamposVacios())
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Por favor complete todos los campos del perfil.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Perfil_Actualizar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@IdUsuario", Convert.ToInt32(Session["IdUsuario"]));
+                    cmd.Parameters.AddWithValue("@NombreCompleto", txtNombrePerfil.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NombreUsuario", txtCorreoPerfil.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Contrasena", txtContrasenaPerfil.Text.Trim());
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Cambios de perfil procesados correctamente.";
+                lblMensaje.Text = "Perfil actualizado correctamente.";
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al guardar: " + ex.Message;
+                lblMensaje.Text = "Error al guardar perfil: " + ex.Message;
             }
         }
 
         protected void btnCancelarPerfil_Click(object sender, EventArgs e)
         {
-            txtNombrePerfil.Text = string.Empty;
-            txtCorreoPerfil.Text = string.Empty;
-            txtTelefonoPerfil.Text = string.Empty;
-            txtContrasenaPerfil.Text = string.Empty;
-            lblMensaje.Text = string.Empty;
-        }
-
-        private bool CamposVacios()
-        {
-            return string.IsNullOrWhiteSpace(txtNombrePerfil.Text) ||
-                   string.IsNullOrWhiteSpace(txtCorreoPerfil.Text) ||
-                   string.IsNullOrWhiteSpace(txtTelefonoPerfil.Text) ||
-                   string.IsNullOrWhiteSpace(txtContrasenaPerfil.Text);
+            CargarPerfil();
+            lblMensaje.Text = "";
         }
     }
 }

@@ -132,6 +132,15 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvProducto;
 
         /// <summary>
+        /// txtMoneda control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMoneda;
+
+        /// <summary>
         /// ddlPlazo control.
         /// </summary>
         /// <remarks>
@@ -193,6 +202,15 @@ namespace SistemaCotizacion.Vistas
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnLimpiar;
+
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
         /// lblCliente control.

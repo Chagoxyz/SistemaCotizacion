@@ -19,6 +19,8 @@
             <h2>Gestión de Usuarios</h2>
 
             <div class="grid">
+
+                <!-- LO QUE YA TENÍAS -->
                 <div>
                     <label>Nombre Completo</label>
                     <asp:TextBox ID="txtNombreCompleto" runat="server" CssClass="input"></asp:TextBox>
@@ -41,16 +43,34 @@
                         <asp:ListItem Text="Inactivo" Value="Inactivo" />
                     </asp:DropDownList>
                 </div>
+
+                <!-- NUEVO: DATOS DEL CLIENTE -->
+                <div>
+                    <label>Cédula</label>
+                    <asp:TextBox ID="txtCedulaCliente" runat="server" CssClass="input"></asp:TextBox>
+                </div>
+
+                <div>
+                    <label>Teléfono</label>
+                    <asp:TextBox ID="txtTelefonoCliente" runat="server" CssClass="input"></asp:TextBox>
+                </div>
+
+                <div>
+                    <label>Correo</label>
+                    <asp:TextBox ID="txtCorreoCliente" runat="server" CssClass="input"></asp:TextBox>
+                </div>
+
             </div>
 
-           <div class="acciones">
+            <!-- BOTONES (NO SE TOCAN) -->
+            <div class="acciones">
                 <asp:Button ID="btnGuardar" runat="server" Text="Guardar" CssClass="btn-primary" OnClick="btnGuardar_Click" />
                 <asp:Button ID="btnEditar" runat="server" Text="Editar" CssClass="btn-sec" OnClick="btnEditar_Click" />
                 <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn-danger" OnClick="btnEliminar_Click" />
                 <asp:Button ID="btnLimpiar" runat="server" Text="Limpiar" CssClass="btn-sec" OnClick="btnLimpiar_Click" CausesValidation="false" />
             </div>
 
-                  <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
+            <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
             <h3 class="seccion">Lista de Usuarios</h3>
 
@@ -63,6 +83,7 @@
                     <asp:BoundField HeaderText="Estado" DataField="Estado" />
                 </Columns>
             </asp:GridView>
+
         </div>
     </div>
 

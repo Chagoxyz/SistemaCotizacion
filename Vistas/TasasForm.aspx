@@ -24,24 +24,21 @@
                         <label>Producto</label>
                         <asp:DropDownList ID="ddlProductoTasa" runat="server" CssClass="input">
                             <asp:ListItem Text="Seleccione..." Value="" />
-                            <asp:ListItem Text="Colón Crece (CC)" Value="CC" />
-                            <asp:ListItem Text="Colón Futuro Plus (CF)" Value="CF" />
-                            <asp:ListItem Text="Dólar Seguro (DS)" Value="DS" />
-                            <asp:ListItem Text="Dólar Visión (DV)" Value="DV" />
                         </asp:DropDownList>
                     </div>
 
                     <div>
                         <label>Moneda</label>
                         <asp:DropDownList ID="ddlMonedaTasa" runat="server" CssClass="input">
-                            <asp:ListItem Text="Colones" Value="CRC" />
-                            <asp:ListItem Text="Dólares" Value="USD" />
+                            <asp:ListItem Text="Seleccione..." Value="" />
                         </asp:DropDownList>
                     </div>
 
                     <div>
                         <label>Plazo</label>
-                        <asp:TextBox ID="txtPlazoTasa" runat="server" CssClass="input"></asp:TextBox>
+                        <asp:DropDownList ID="ddlPlazoTasa" runat="server" CssClass="input">
+                            <asp:ListItem Text="Seleccione..." Value="" />
+                        </asp:DropDownList>
                     </div>
 
                     <div>
@@ -51,12 +48,12 @@
                 </div>
 
                 <div class="acciones">
-                        <asp:Button ID="btnGuardarTasa" runat="server" Text="Guardar" CssClass="btn-primary" OnClick="btnGuardarTasa_Click" />
-                        <asp:Button ID="btnEditarTasa" runat="server" Text="Editar" CssClass="btn-sec" OnClick="btnEditarTasa_Click" />
-                        <asp:Button ID="btnEliminarTasa" runat="server" Text="Eliminar" CssClass="btn-danger" OnClick="btnEliminarTasa_Click" />
-                    </div>
+                    <asp:Button ID="btnGuardarTasa" runat="server" Text="Guardar" CssClass="btn-primary" OnClick="btnGuardarTasa_Click" />
+                    <asp:Button ID="btnEditarTasa" runat="server" Text="Editar" CssClass="btn-sec" OnClick="btnEditarTasa_Click" />
+                    <asp:Button ID="btnEliminarTasa" runat="server" Text="Eliminar" CssClass="btn-danger" OnClick="btnEliminarTasa_Click" />
+                </div>
 
-                    <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
+                <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje"></asp:Label>
 
                 <h3 class="seccion">Lista de Tasas</h3>
 

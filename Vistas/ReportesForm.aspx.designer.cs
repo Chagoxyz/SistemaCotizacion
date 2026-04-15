@@ -24,13 +24,13 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// ddlTipoReporte control.
+        /// ddlClienteReporte control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlTipoReporte;
+        protected global::System.Web.UI.WebControls.DropDownList ddlClienteReporte;
 
         /// <summary>
         /// ddlFormatoReporte control.
@@ -42,13 +42,31 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.WebControls.DropDownList ddlFormatoReporte;
 
         /// <summary>
-        /// btnGenerarReporte control.
+        /// btnBuscarReporte control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnGenerarReporte;
+        protected global::System.Web.UI.WebControls.Button btnBuscarReporte;
+
+        /// <summary>
+        /// btnExportarSeleccionada control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportarSeleccionada;
+
+        /// <summary>
+        /// btnExportarTodas control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnExportarTodas;
 
         /// <summary>
         /// btnLimpiarReporte control.
@@ -67,6 +85,15 @@ namespace SistemaCotizacion.Vistas
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMensaje;
+
+        /// <summary>
+        /// lblCotizacionSeleccionada control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCotizacionSeleccionada;
 
         /// <summary>
         /// gvReportes control.

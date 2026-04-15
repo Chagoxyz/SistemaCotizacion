@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using SistemaCotizacion.Utilidades;
 
 namespace SistemaCotizacion.Vistas
 {
@@ -8,7 +11,24 @@ namespace SistemaCotizacion.Vistas
         {
             if (!IsPostBack)
             {
+                CargarPlazos();
                 lblMensaje.Text = string.Empty;
+            }
+        }
+
+        private void CargarPlazos()
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Plazo_Listar", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                gvPlazos.DataSource = dt;
+                gvPlazos.DataBind();
             }
         }
 
@@ -16,20 +36,28 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (CamposVacios())
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Por favor complete todos los campos del plazo.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Plazo_Insertar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Descripcion", txtDescripcionPlazo.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Cantidad", Convert.ToInt32(txtCantidadPlazo.Text.Trim()));
+                    cmd.Parameters.AddWithValue("@Tipo", ddlTipoPlazo.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Estado", ddlEstadoPlazo.SelectedValue);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Plazo procesado correctamente.";
+                lblMensaje.Text = "Plazo guardado correctamente.";
+                Limpiar();
+                CargarPlazos();
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al guardar: " + ex.Message;
+                lblMensaje.Text = "Error al guardar plazo: " + ex.Message;
             }
         }
 
@@ -37,20 +65,28 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (CamposVacios())
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Debe completar la información antes de editar.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Plazo_Actualizar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Descripcion", txtDescripcionPlazo.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Cantidad", Convert.ToInt32(txtCantidadPlazo.Text.Trim()));
+                    cmd.Parameters.AddWithValue("@Tipo", ddlTipoPlazo.SelectedValue);
+                    cmd.Parameters.AddWithValue("@Estado", ddlEstadoPlazo.SelectedValue);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Edición simulada correctamente.";
+                lblMensaje.Text = "Plazo actualizado correctamente.";
+                Limpiar();
+                CargarPlazos();
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al editar: " + ex.Message;
+                lblMensaje.Text = "Error al editar plazo: " + ex.Message;
             }
         }
 
@@ -58,29 +94,34 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtDescripcionPlazo.Text))
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Ingrese la descripción del plazo para simular la eliminación.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Plazo_Eliminar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Descripcion", txtDescripcionPlazo.Text.Trim());
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Eliminación simulada correctamente.";
+                lblMensaje.Text = "Plazo eliminado correctamente.";
+                Limpiar();
+                CargarPlazos();
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al eliminar: " + ex.Message;
+                lblMensaje.Text = "Error al eliminar plazo: " + ex.Message;
             }
         }
 
-        private bool CamposVacios()
+        private void Limpiar()
         {
-            return string.IsNullOrWhiteSpace(txtDescripcionPlazo.Text) ||
-                   string.IsNullOrWhiteSpace(txtCantidadPlazo.Text) ||
-                   string.IsNullOrWhiteSpace(ddlTipoPlazo.SelectedValue) ||
-                   string.IsNullOrWhiteSpace(ddlEstadoPlazo.SelectedValue);
+            txtDescripcionPlazo.Text = "";
+            txtCantidadPlazo.Text = "";
+            ddlTipoPlazo.SelectedIndex = 0;
+            ddlEstadoPlazo.SelectedIndex = 0;
         }
     }
 }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
+using SistemaCotizacion.Utilidades;
 
 namespace SistemaCotizacion.Vistas
 {
@@ -8,7 +11,24 @@ namespace SistemaCotizacion.Vistas
         {
             if (!IsPostBack)
             {
+                CargarMonedas();
                 lblMensaje.Text = string.Empty;
+            }
+        }
+
+        private void CargarMonedas()
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Moneda_Listar", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                gvMonedas.DataSource = dt;
+                gvMonedas.DataBind();
             }
         }
 
@@ -16,20 +36,28 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (CamposVacios())
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Por favor complete todos los campos de la moneda.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Moneda_Insertar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CodigoMoneda", txtCodigoMoneda.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NombreMoneda", txtNombreMoneda.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Simbolo", txtSimboloMoneda.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Estado", ddlEstadoMoneda.SelectedValue);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Moneda procesada correctamente.";
+                lblMensaje.Text = "Moneda guardada correctamente.";
+                Limpiar();
+                CargarMonedas();
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al guardar: " + ex.Message;
+                lblMensaje.Text = "Error al guardar moneda: " + ex.Message;
             }
         }
 
@@ -37,20 +65,28 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (CamposVacios())
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Debe completar la información antes de editar.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Moneda_Actualizar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CodigoMoneda", txtCodigoMoneda.Text.Trim());
+                    cmd.Parameters.AddWithValue("@NombreMoneda", txtNombreMoneda.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Simbolo", txtSimboloMoneda.Text.Trim());
+                    cmd.Parameters.AddWithValue("@Estado", ddlEstadoMoneda.SelectedValue);
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Edición simulada correctamente.";
+                lblMensaje.Text = "Moneda actualizada correctamente.";
+                Limpiar();
+                CargarMonedas();
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al editar: " + ex.Message;
+                lblMensaje.Text = "Error al editar moneda: " + ex.Message;
             }
         }
 
@@ -58,29 +94,34 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(txtCodigoMoneda.Text))
+                using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Text = "Ingrese el código de la moneda para simular la eliminación.";
-                    return;
+                    SqlCommand cmd = new SqlCommand("dbo.sp_Moneda_Eliminar", cn);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@CodigoMoneda", txtCodigoMoneda.Text.Trim());
+
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
                 lblMensaje.ForeColor = System.Drawing.Color.Green;
-                lblMensaje.Text = "Eliminación simulada correctamente.";
+                lblMensaje.Text = "Moneda eliminada correctamente.";
+                Limpiar();
+                CargarMonedas();
             }
             catch (Exception ex)
             {
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Text = "Ocurrió un error al eliminar: " + ex.Message;
+                lblMensaje.Text = "Error al eliminar moneda: " + ex.Message;
             }
         }
 
-        private bool CamposVacios()
+        private void Limpiar()
         {
-            return string.IsNullOrWhiteSpace(txtCodigoMoneda.Text) ||
-                   string.IsNullOrWhiteSpace(txtNombreMoneda.Text) ||
-                   string.IsNullOrWhiteSpace(txtSimboloMoneda.Text) ||
-                   string.IsNullOrWhiteSpace(ddlEstadoMoneda.SelectedValue);
+            txtCodigoMoneda.Text = "";
+            txtNombreMoneda.Text = "";
+            txtSimboloMoneda.Text = "";
+            ddlEstadoMoneda.SelectedIndex = 0;
         }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web.UI;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web.UI.WebControls;
 using SistemaCotizacion.Clases;
+using SistemaCotizacion.Utilidades;
 
 namespace SistemaCotizacion.Vistas
 {
@@ -9,6 +12,95 @@ namespace SistemaCotizacion.Vistas
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["IdUsuario"] == null)
+            {
+                Response.Redirect("LoginForm.aspx");
+                return;
+            }
+
+            if (!IsPostBack)
+            {
+                CargarProductos();
+
+                ddlPlazo.Items.Clear();
+                ddlPlazo.Items.Insert(0, new ListItem("Seleccione...", ""));
+                txtMoneda.Text = "";
+            }
+        }
+
+        private void CargarProductos()
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Producto_ListarActivos", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlProducto.DataSource = dt;
+                ddlProducto.DataTextField = "NombreProducto";
+                ddlProducto.DataValueField = "CodigoProducto";
+                ddlProducto.DataBind();
+                ddlProducto.Items.Insert(0, new ListItem("Seleccione...", ""));
+            }
+        }
+
+        private void CargarPlazosPorProducto(int idProducto)
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Plazo_ListarPorProducto", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IdProducto", idProducto);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+
+                ddlPlazo.DataSource = dt;
+                ddlPlazo.DataTextField = "Descripcion";
+                ddlPlazo.DataValueField = "Descripcion";
+                ddlPlazo.DataBind();
+                ddlPlazo.Items.Insert(0, new ListItem("Seleccione...", ""));
+            }
+        }
+
+        private void CargarMonedaPorProducto(string codigoProducto)
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Producto_ObtenerMonedaPorCodigo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CodigoProducto", codigoProducto);
+
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                {
+                    txtMoneda.Text = dr["NombreMoneda"].ToString();
+                }
+                else
+                {
+                    txtMoneda.Text = "";
+                }
+            }
+        }
+
+        protected void ddlProducto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlPlazo.Items.Clear();
+            ddlPlazo.Items.Insert(0, new ListItem("Seleccione...", ""));
+            txtMoneda.Text = "";
+
+            if (string.IsNullOrWhiteSpace(ddlProducto.SelectedValue))
+                return;
+
+            int idProducto = ObtenerIdProducto(ddlProducto.SelectedValue);
+            CargarPlazosPorProducto(idProducto);
+            CargarMonedaPorProducto(ddlProducto.SelectedValue);
         }
 
         protected void btnCalcular_Click(object sender, EventArgs e)
@@ -16,19 +108,18 @@ namespace SistemaCotizacion.Vistas
             try
             {
                 if (!Page.IsValid)
-                {
                     return;
-                }
 
-                decimal monto = Convert.ToDecimal(txtMonto.Text);
-                string producto = ddlProducto.SelectedItem.Text;
+                decimal monto = Convert.ToDecimal(txtMonto.Text.Trim());
+                string codigoProducto = ddlProducto.SelectedValue;
                 string plazoTexto = ddlPlazo.SelectedValue;
 
+                int idProducto = ObtenerIdProducto(codigoProducto);
+                int idPlazo = ObtenerIdPlazo(plazoTexto);
+                decimal tasa = ObtenerTasa(idProducto, idPlazo);
                 int meses = ObtenerMeses(plazoTexto);
-                decimal tasa = ObtenerTasa(ddlProducto.SelectedValue, plazoTexto);
 
                 CalculadoraInteres calculadora = new CalculadoraInteres();
-
                 List<DetalleCotizacion> detalle = calculadora.CalcularDetalle(monto, tasa, meses);
 
                 decimal totalBruto = 0;
@@ -53,12 +144,22 @@ namespace SistemaCotizacion.Vistas
                     });
                 }
 
-                lblCliente.Text = txtNombre.Text;
-                lblProducto.Text = producto;
+                // Admin puede cotizar a cualquier cliente escrito en pantalla.
+                // Usuario normal cotiza para sí mismo.
+                if (Convert.ToInt32(Session["IdRol"]) == 1)
+                {
+                    lblCliente.Text = txtNombre.Text.Trim();
+                }
+                else
+                {
+                    lblCliente.Text = Session["NombreCompleto"].ToString();
+                    txtNombre.Text = Session["NombreCompleto"].ToString();
+                }
+
+                lblProducto.Text = ddlProducto.SelectedItem.Text;
                 lblMonto.Text = monto.ToString("N2");
                 lblPlazo.Text = plazoTexto;
-                lblTasa.Text = tasa.ToString("N2") + "%";
-
+                lblTasa.Text = tasa.ToString("N4") + "%";
                 lblBruto.Text = totalBruto.ToString("N2");
                 lblImpuesto.Text = totalImpuesto.ToString("N2");
                 lblNeto.Text = totalNeto.ToString("N2");
@@ -66,11 +167,100 @@ namespace SistemaCotizacion.Vistas
                 gvDetalle.DataSource = listaMostrar;
                 gvDetalle.DataBind();
 
+                ViewState["IdProducto"] = idProducto;
+                ViewState["IdPlazo"] = idPlazo;
+                ViewState["Tasa"] = tasa;
+                ViewState["TotalBruto"] = totalBruto;
+                ViewState["TotalImpuesto"] = totalImpuesto;
+                ViewState["TotalNeto"] = totalNeto;
+                Session["DetalleActual"] = detalle;
+
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
                 lblMensaje.Text = "Cotización calculada correctamente.";
             }
             catch (Exception ex)
             {
-                lblMensaje.Text = "Ocurrió un error al calcular la cotización: " + ex.Message;
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Text = "Error al calcular la cotización: " + ex.Message;
+            }
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            SqlConnection cn = null;
+            SqlTransaction tr = null;
+
+            try
+            {
+                if (Session["IdUsuario"] == null)
+                    throw new Exception("Sesión expirada. Inicie sesión nuevamente.");
+
+                if (Session["DetalleActual"] == null)
+                    throw new Exception("Primero debe calcular la cotización.");
+
+                List<DetalleCotizacion> detalle = (List<DetalleCotizacion>)Session["DetalleActual"];
+                int idProducto = Convert.ToInt32(ViewState["IdProducto"]);
+                int idPlazo = Convert.ToInt32(ViewState["IdPlazo"]);
+                decimal tasa = Convert.ToDecimal(ViewState["Tasa"]);
+                decimal totalBruto = Convert.ToDecimal(ViewState["TotalBruto"]);
+                decimal totalImpuesto = Convert.ToDecimal(ViewState["TotalImpuesto"]);
+                decimal totalNeto = Convert.ToDecimal(ViewState["TotalNeto"]);
+                decimal monto = Convert.ToDecimal(txtMonto.Text.Trim());
+
+                cn = ConexionDB.ObtenerConexion();
+                cn.Open();
+                tr = cn.BeginTransaction();
+
+                int idCliente = ObtenerOCrearCliente(cn, tr);
+                int idTasa = ObtenerIdTasa(cn, tr, idProducto, idPlazo);
+                int numeroCotizacion = ObtenerSiguienteNumeroCotizacion(cn, tr);
+
+                SqlCommand cmdCot = new SqlCommand("dbo.sp_Cotizacion_Insertar", cn, tr);
+                cmdCot.CommandType = CommandType.StoredProcedure;
+                cmdCot.Parameters.AddWithValue("@NumeroCotizacion", numeroCotizacion);
+                cmdCot.Parameters.AddWithValue("@IdCliente", idCliente);
+                cmdCot.Parameters.AddWithValue("@IdProducto", idProducto);
+                cmdCot.Parameters.AddWithValue("@IdPlazo", idPlazo);
+                cmdCot.Parameters.AddWithValue("@IdTasa", idTasa);
+                cmdCot.Parameters.AddWithValue("@IdUsuario", Convert.ToInt32(Session["IdUsuario"]));
+                cmdCot.Parameters.AddWithValue("@Monto", monto);
+                cmdCot.Parameters.AddWithValue("@TasaAnual", tasa);
+                cmdCot.Parameters.AddWithValue("@TotalInteresBruto", totalBruto);
+                cmdCot.Parameters.AddWithValue("@TotalImpuesto", totalImpuesto);
+                cmdCot.Parameters.AddWithValue("@TotalNeto", totalNeto);
+
+                int idCotizacion = Convert.ToInt32(cmdCot.ExecuteScalar());
+
+                foreach (var item in detalle)
+                {
+                    SqlCommand cmdDet = new SqlCommand("dbo.sp_DetalleCotizacion_Insertar", cn, tr);
+                    cmdDet.CommandType = CommandType.StoredProcedure;
+                    cmdDet.Parameters.AddWithValue("@IdCotizacion", idCotizacion);
+                    cmdDet.Parameters.AddWithValue("@Mes", item.Mes);
+                    cmdDet.Parameters.AddWithValue("@Monto", item.Monto);
+                    cmdDet.Parameters.AddWithValue("@InteresBruto", item.InteresBruto);
+                    cmdDet.Parameters.AddWithValue("@Impuesto", item.Impuesto);
+                    cmdDet.Parameters.AddWithValue("@InteresNeto", item.InteresNeto);
+                    cmdDet.ExecuteNonQuery();
+                }
+
+                tr.Commit();
+
+                lblMensaje.ForeColor = System.Drawing.Color.Green;
+                lblMensaje.Text = "Cotización guardada correctamente. Número: " + numeroCotizacion;
+            }
+            catch (Exception ex)
+            {
+                if (tr != null)
+                    tr.Rollback();
+
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Text = "Error al guardar cotización: " + ex.Message;
+            }
+            finally
+            {
+                if (cn != null && cn.State == ConnectionState.Open)
+                    cn.Close();
             }
         }
 
@@ -83,7 +273,9 @@ namespace SistemaCotizacion.Vistas
             txtMonto.Text = "";
 
             ddlProducto.SelectedIndex = 0;
-            ddlPlazo.SelectedIndex = 0;
+            ddlPlazo.Items.Clear();
+            ddlPlazo.Items.Insert(0, new ListItem("Seleccione...", ""));
+            txtMoneda.Text = "";
 
             lblCliente.Text = "";
             lblProducto.Text = "";
@@ -97,165 +289,124 @@ namespace SistemaCotizacion.Vistas
 
             gvDetalle.DataSource = null;
             gvDetalle.DataBind();
+
+            Session["DetalleActual"] = null;
+        }
+
+        private int ObtenerIdProducto(string codigoProducto)
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Producto_ObtenerIdPorCodigo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@CodigoProducto", codigoProducto);
+
+                cn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        private int ObtenerIdPlazo(string descripcion)
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Plazo_ObtenerIdPorDescripcion", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Descripcion", descripcion);
+
+                cn.Open();
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
+
+        private decimal ObtenerTasa(int idProducto, int idPlazo)
+        {
+            using (SqlConnection cn = ConexionDB.ObtenerConexion())
+            {
+                SqlCommand cmd = new SqlCommand("dbo.sp_Tasa_ObtenerPorProductoYPlazo", cn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@IdProducto", idProducto);
+                cmd.Parameters.AddWithValue("@IdPlazo", idPlazo);
+
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                if (dr.Read())
+                    return Convert.ToDecimal(dr["TasaAnual"]);
+
+                throw new Exception("No existe una tasa configurada para el producto y plazo seleccionados.");
+            }
         }
 
         private int ObtenerMeses(string plazoTexto)
         {
-            switch (plazoTexto)
+            if (plazoTexto == "15 días")
+                return 1;
+
+            return Convert.ToInt32(plazoTexto.Replace(" meses", "").Replace(" mes", ""));
+        }
+
+        private int ObtenerOCrearCliente(SqlConnection cn, SqlTransaction tr)
+        {
+            // Si es administrador, puede buscar o crear cliente según la cédula escrita.
+            if (Convert.ToInt32(Session["IdRol"]) == 1)
             {
-                case "15 días": return 1;
-                case "1 mes": return 1;
-                case "2 meses": return 2;
-                case "3 meses": return 3;
-                case "4 meses": return 4;
-                case "5 meses": return 5;
-                case "6 meses": return 6;
-                case "7 meses": return 7;
-                case "8 meses": return 8;
-                case "9 meses": return 9;
-                case "10 meses": return 10;
-                case "11 meses": return 11;
-                case "12 meses": return 12;
-                case "13 meses": return 13;
-                case "14 meses": return 14;
-                case "15 meses": return 15;
-                case "16 meses": return 16;
-                case "17 meses": return 17;
-                case "18 meses": return 18;
-                case "19 meses": return 19;
-                case "20 meses": return 20;
-                case "21 meses": return 21;
-                case "22 meses": return 22;
-                case "23 meses": return 23;
-                case "24 meses": return 24;
-                default: return 0;
+                SqlCommand cmdBuscar = new SqlCommand("dbo.sp_Cliente_ObtenerPorIdentificacion", cn, tr);
+                cmdBuscar.CommandType = CommandType.StoredProcedure;
+                cmdBuscar.Parameters.AddWithValue("@Identificacion", txtCedula.Text.Trim());
+
+                object result = cmdBuscar.ExecuteScalar();
+
+                if (result != null)
+                    return Convert.ToInt32(result);
+
+                SqlCommand cmdInsert = new SqlCommand("dbo.sp_Cliente_Insertar", cn, tr);
+                cmdInsert.CommandType = CommandType.StoredProcedure;
+                cmdInsert.Parameters.AddWithValue("@Identificacion", txtCedula.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@NombreCompleto", txtNombre.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Telefono", txtTelefono.Text.Trim());
+                cmdInsert.Parameters.AddWithValue("@Correo", txtCorreo.Text.Trim());
+
+                return Convert.ToInt32(cmdInsert.ExecuteScalar());
+            }
+            else
+            {
+                // Si es cliente normal, SIEMPRE usar el cliente ligado al usuario
+                SqlCommand cmd = new SqlCommand("SELECT IdCliente FROM dbo.Usuario WHERE IdUsuario = @IdUsuario", cn, tr);
+                cmd.Parameters.AddWithValue("@IdUsuario", Convert.ToInt32(Session["IdUsuario"]));
+
+                object result = cmd.ExecuteScalar();
+
+                if (result == null || result == DBNull.Value)
+                    throw new Exception("Su usuario no está asociado a un cliente. Debe asignarse primero en mantenimiento de usuarios.");
+
+                return Convert.ToInt32(result);
             }
         }
 
-        private decimal ObtenerTasa(string producto, string plazo)
+        private int ObtenerIdTasa(SqlConnection cn, SqlTransaction tr, int idProducto, int idPlazo)
         {
-            if (producto == "CC")
-            {
-                switch (plazo)
-                {
-                    case "15 días": return 3.1500m;
-                    case "1 mes": return 3.2500m;
-                    case "2 meses": return 3.4000m;
-                    case "3 meses": return 3.6000m;
-                    case "4 meses": return 3.7500m;
-                    case "5 meses": return 3.9000m;
-                    case "6 meses": return 4.1000m;
-                    case "7 meses": return 4.2500m;
-                    case "8 meses": return 4.4000m;
-                    case "9 meses": return 4.5500m;
-                    case "10 meses": return 4.7000m;
-                    case "11 meses": return 4.8500m;
-                    case "12 meses": return 5.0000m;
-                    case "13 meses": return 5.1000m;
-                    case "14 meses": return 5.2000m;
-                    case "15 meses": return 5.3000m;
-                    case "16 meses": return 5.4000m;
-                    case "17 meses": return 5.5000m;
-                    case "18 meses": return 5.6500m;
-                    case "19 meses": return 5.8000m;
-                    case "20 meses": return 5.9500m;
-                    case "21 meses": return 6.1000m;
-                    case "22 meses": return 6.2500m;
-                    case "23 meses": return 6.4000m;
-                    case "24 meses": return 6.5500m;
-                }
-            }
+            SqlCommand cmd = new SqlCommand("dbo.sp_Tasa_ObtenerPorProductoYPlazo", cn, tr);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@IdProducto", idProducto);
+            cmd.Parameters.AddWithValue("@IdPlazo", idPlazo);
 
-            if (producto == "CF")
-            {
-                switch (plazo)
-                {
-                    case "3 meses": return 3.8500m;
-                    case "4 meses": return 4.0000m;
-                    case "5 meses": return 4.1500m;
-                    case "6 meses": return 4.3500m;
-                    case "7 meses": return 4.5000m;
-                    case "8 meses": return 4.6500m;
-                    case "9 meses": return 4.8000m;
-                    case "10 meses": return 4.9500m;
-                    case "11 meses": return 5.1000m;
-                    case "12 meses": return 5.3000m;
-                    case "13 meses": return 5.4000m;
-                    case "14 meses": return 5.5000m;
-                    case "15 meses": return 5.6000m;
-                    case "16 meses": return 5.7000m;
-                    case "17 meses": return 5.8000m;
-                    case "18 meses": return 5.9500m;
-                    case "19 meses": return 6.1000m;
-                    case "20 meses": return 6.2500m;
-                    case "21 meses": return 6.4000m;
-                    case "22 meses": return 6.5500m;
-                    case "23 meses": return 6.7000m;
-                    case "24 meses": return 6.9000m;
-                }
-            }
+            SqlDataReader dr = cmd.ExecuteReader();
+            int idTasa = 0;
 
-            if (producto == "DS")
-            {
-                switch (plazo)
-                {
-                    case "1 mes": return 1.0000m;
-                    case "2 meses": return 1.2500m;
-                    case "3 meses": return 1.5000m;
-                    case "4 meses": return 1.6500m;
-                    case "5 meses": return 1.8000m;
-                    case "6 meses": return 2.0000m;
-                    case "7 meses": return 2.1500m;
-                    case "8 meses": return 2.3000m;
-                    case "9 meses": return 2.4500m;
-                    case "10 meses": return 2.6000m;
-                    case "11 meses": return 2.7500m;
-                    case "12 meses": return 2.9000m;
-                    case "13 meses": return 3.0000m;
-                    case "14 meses": return 3.1000m;
-                    case "15 meses": return 3.2000m;
-                    case "16 meses": return 3.3000m;
-                    case "17 meses": return 3.4000m;
-                    case "18 meses": return 3.5500m;
-                    case "19 meses": return 3.7000m;
-                    case "20 meses": return 3.8500m;
-                    case "21 meses": return 4.0000m;
-                    case "22 meses": return 4.1500m;
-                    case "23 meses": return 4.3000m;
-                    case "24 meses": return 4.4500m;
-                }
-            }
+            if (dr.Read())
+                idTasa = Convert.ToInt32(dr["IdTasa"]);
 
-            if (producto == "DV")
-            {
-                switch (plazo)
-                {
-                    case "3 meses": return 2.7500m;
-                    case "4 meses": return 2.9000m;
-                    case "5 meses": return 3.0500m;
-                    case "6 meses": return 3.2500m;
-                    case "7 meses": return 3.4000m;
-                    case "8 meses": return 3.5500m;
-                    case "9 meses": return 3.7000m;
-                    case "10 meses": return 3.8500m;
-                    case "11 meses": return 4.0000m;
-                    case "12 meses": return 4.2000m;
-                    case "13 meses": return 4.3000m;
-                    case "14 meses": return 4.4000m;
-                    case "15 meses": return 4.5000m;
-                    case "16 meses": return 4.6000m;
-                    case "17 meses": return 4.7000m;
-                    case "18 meses": return 4.8500m;
-                    case "19 meses": return 5.0000m;
-                    case "20 meses": return 5.1500m;
-                    case "21 meses": return 5.3000m;
-                    case "22 meses": return 5.4500m;
-                    case "23 meses": return 5.6000m;
-                    case "24 meses": return 6.8500m;
-                }
-            }
+            dr.Close();
 
-            return 0;
+            return idTasa;
+        }
+
+        private int ObtenerSiguienteNumeroCotizacion(SqlConnection cn, SqlTransaction tr)
+        {
+            SqlCommand cmd = new SqlCommand("dbo.sp_Cotizacion_ObtenerSiguienteNumero", cn, tr);
+            cmd.CommandType = CommandType.StoredProcedure;
+            return Convert.ToInt32(cmd.ExecuteScalar());
         }
     }
 }

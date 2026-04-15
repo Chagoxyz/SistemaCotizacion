@@ -42,13 +42,13 @@ namespace SistemaCotizacion.Vistas
         protected global::System.Web.UI.WebControls.DropDownList ddlMonedaTasa;
 
         /// <summary>
-        /// txtPlazoTasa control.
+        /// ddlPlazoTasa control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtPlazoTasa;
+        protected global::System.Web.UI.WebControls.DropDownList ddlPlazoTasa;
 
         /// <summary>
         /// txtValorTasa control.
