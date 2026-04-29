@@ -29,11 +29,21 @@ namespace SistemaCotizacion.Vistas
                 DataTable dt = new DataTable();
                 da.Fill(dt);
 
+                // Quita monedas vacías que vengan de la base de datos
+                for (int i = dt.Rows.Count - 1; i >= 0; i--)
+                {
+                    if (string.IsNullOrWhiteSpace(dt.Rows[i]["NombreMoneda"].ToString()))
+                    {
+                        dt.Rows.RemoveAt(i);
+                    }
+                }
+
+                ddlMoneda.Items.Clear();
                 ddlMoneda.DataSource = dt;
                 ddlMoneda.DataTextField = "NombreMoneda";
                 ddlMoneda.DataValueField = "IdMoneda";
                 ddlMoneda.DataBind();
-                ddlMoneda.Items.Insert(0, new ListItem("Seleccione...", ""));
+                ddlMoneda.Items.Insert(0, new ListItem("Seleccione...", "0"));
             }
         }
 
@@ -57,6 +67,13 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
+                if (ddlMoneda.SelectedValue == "0")
+                {
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
+                    lblMensaje.Text = "Debe seleccionar una moneda.";
+                    return;
+                }
+
                 using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
                     SqlCommand cmd = new SqlCommand("dbo.sp_Producto_Insertar", cn);
@@ -86,6 +103,13 @@ namespace SistemaCotizacion.Vistas
         {
             try
             {
+                if (ddlMoneda.SelectedValue == "0")
+                {
+                    lblMensaje.ForeColor = System.Drawing.Color.Red;
+                    lblMensaje.Text = "Debe seleccionar una moneda.";
+                    return;
+                }
+
                 using (SqlConnection cn = ConexionDB.ObtenerConexion())
                 {
                     SqlCommand cmd = new SqlCommand("dbo.sp_Producto_Actualizar", cn);
